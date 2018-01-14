@@ -1,3 +1,4 @@
+
 function g = sigmoid(z)
 %SIGMOID Compute sigmoid function
 %   g = SIGMOID(z) computes the sigmoid of z.
@@ -9,10 +10,12 @@ g = zeros(size(z));
 % Instructions: Compute the sigmoid of each value of z (z can be a matrix,
 %               vector or scalar).
 
-
-
-
+g = arrayfun(@scalar_sigmoid, z);
 
 % =============================================================
 
+end
+
+function s = scalar_sigmoid(i)
+  s = 1 / (1 + e ^ -i);
 end
