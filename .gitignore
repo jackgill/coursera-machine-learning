@@ -1,3 +1,5 @@
 .ipynb_checkpoints
 *.pdf
 *.txt
+jsonlab
+octave-workspace
