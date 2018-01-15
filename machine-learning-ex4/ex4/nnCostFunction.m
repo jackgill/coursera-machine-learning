@@ -63,12 +63,60 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+Delta_1 = zeros(size(Theta1));
+Delta_2 = zeros(size(Theta2));
 
+X = [ones(m, 1) X];
 
+for i = 1:m
+  % Feedforward
+  a_1 = X(i, :)';
+  z_2 = Theta1 * a_1;
+  a_2 = sigmoid(z_2);
+  a_2 = [1; a_2];
+  z_3 = Theta2 * a_2;
+  a_3 = sigmoid(z_3);
 
+  h_theta = a_3;
+  
+  % Convert label (1-10) to vector
+  y_i = zeros(num_labels, 1);
+  y_i(y(i)) = 1;
+  
+  % Compute cost
+  J += sum(-y_i .* log(h_theta) - (1 - y_i) .* log(1 - h_theta));
+  
+  % Compute gradients
+  delta_3 = (a_3 - y_i);
+  delta_2 = (Theta2' * delta_3)(2:end) .* sigmoidGradient(z_2);
+  %delta_2 = delta_2(2:end);
+  
+  Delta_2 += delta_3 * a_2';
+  Delta_1 += delta_2 * a_1';
+  
+  
+end
 
+J /= m;
 
+Theta1_grad = Delta_1 / m;
+Theta2_grad = Delta_2 / m;
 
+% Regularize cost function
+J += (lambda / (2*m)) * ( ...
+  sum(sum(Theta1(:, 2:end) .^ 2)) + ...
+  sum(sum(Theta2(:, 2:end) .^ 2)) ...
+);
+
+% Regularize gradients
+reg_1 = (lambda / m) * Theta1;
+reg_2 = (lambda / m) * Theta2;
+
+reg_1(:, 1) = 0;
+reg_2(:, 1) = 0;
+
+Theta1_grad += reg_1;
+Theta2_grad += reg_2;
 
 
 
