@@ -26,11 +26,6 @@ sigma = 0.3;
 C_vals = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
 sigma_vals = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
 
-%C_vals = [0.01, 0.03];
-%sigma_vals = [0.01, 0.03];
-
-results = zeros(size(C_vals, 2) * size(sigma_vals, 2), 3);
-
 best_error = 100;
 best_sigma = 0;
 best_C = 0;
