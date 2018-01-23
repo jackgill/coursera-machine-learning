@@ -22,7 +22,18 @@ idx = zeros(size(X,1), 1);
 %
 
 
-
+for i_example = 1:size(X)
+  min_distance = 100;
+  min_centroid = -1;
+  for i_centroid = 1:K
+    distance = norm(X(i_example, :) - centroids(i_centroid, :));
+    if distance < min_distance
+      min_distance = distance;
+      min_centroid = i_centroid;
+    end
+  end
+  idx(i_example) = min_centroid;
+end
 
 
 

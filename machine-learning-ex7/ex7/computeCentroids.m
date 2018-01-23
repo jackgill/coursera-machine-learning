@@ -28,7 +28,10 @@ centroids = zeros(K, n);
 
 
 
-
+for i = 1:K
+  examples = X(idx == i, :);
+  centroids(i, :) = (1 / size(examples, 1)) * sum(examples);
+end
 
 
 
